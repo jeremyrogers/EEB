@@ -20,7 +20,8 @@
 		\item Brush up on R by looking through the user manual
 		\item Begin looking through the code on the repository
 		\item Create a repository for these notes
-		\item Get a Linux install working on my box
+		\item Get a Linux install working on my machine
+		\item Read up on MCMC
 	\end{enumerate}
 	
 	\section{Progress/Notes}
@@ -36,7 +37,7 @@
 		 \end{enumerate}
 	\subsection{Read through all of Logan's previous notes} 
 		\begin{enumerate}
-			\item I should check out his script repository later, when I need to begin testing this. He says it's located at https://github.com/ozway/cubmisc
+			\item I should check out his script repository later, when I need to begin testing this. He says it's located at \url{https://github.com/ozway/cubmisc}
 			\item After reading through all the notes, it appears that his code is close to completion. There are a few things that he mentioned wanting to do, and I'm not sure if he got around to those.
 			\item He mentions moving some of the code to C from R, but he feels that it would be more work than it is worth.
 			\item He also mentions debugging the genome creation process by using a genome that is totally dominated by mutation bias, and see if the genome is correctly created across all phi values.
@@ -47,9 +48,9 @@
 				\item CBU -- codon usage bias
 				\item $ \eta $ -- cost-benefit ratio of protein synthesis
 				\item $ \phi $ -- protein synthesis rate
-				\item $ N_e $ ??
+				\item $ N_e $ -- population size
 				\item ROC -- ribosome overhead costs
-				\item NSE ??
+				\item NSE -- nonsense error
 				\item ORFs -- Open Reading Frames
 				\item $ q $ -- proportional decline in fitness per ATP wasted per unit time
 				\item $ \Delta M $ -- mutation bias
@@ -63,8 +64,25 @@
 			\item Read the first 3 chapters
 		\end{enumerate}
 		
+		\subsection{Read through the code on the repository}
+			\begin{enumerate}
+				\item I have begun to read through the main staples of the code (namely \texttt{my.cubappr.r} and \texttt{roc.appr.r}). This is a lot of code, in a language that I've only used in passing, so it could take a while to figure this out. 
+			\end{enumerate}
+
+		
 		\subsection{Create a repository for these notes}
 			\begin{enumerate}
 				\item Repository has been created at \url{https://github.com/jeremyrogers/EEB}
+			\end{enumerate}
+			
+		\subsection{Get a Linux Install working on my machine}
+			\begin{enumerate}
+				\item This is a low priority, but I'd still like to get it done by the end of the week. According to the documentation on \texttt{CUBfits}, some of the parallel stuff might bug out on Windows.
+			\end{enumerate}
+			
+		\subsection{Read up on MCMC}
+			\begin{enumerate}
+				\item Thanks to Stack Exchange's math section, I found a really nice explanation on MCMC found here: \url{http://stats.stackexchange.com/questions/165/how-would-you-explain-markov-chain-monte-carlo-mcmc-to-a-layperson}.
+				\item Once I got the basics down from that link, I was able to parse through the rather technical Wikipedia page on the subject, and now I feel like I have a good grasp on this.
 			\end{enumerate}
 \end{document}
