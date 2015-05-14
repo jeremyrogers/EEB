@@ -7,6 +7,7 @@
 \author{Jeremy Rogers \\
 	\texttt{jroger44@vols.utk.edu}}
 
+\date{Week of May 11, 2015}
 \begin{document}
 	\maketitle
 	
@@ -79,16 +80,46 @@
 		\subsection{Get a Linux Install working on my machine}
 			\begin{enumerate}
 				\item This is a low priority, but I'd still like to get it done by the end of the week. According to the documentation on \texttt{CUBfits}, some of the parallel stuff might bug out on Windows.
+				\item Wednesday Update: I have a working linux install now, so that will dramatically help to test these things.
 			\end{enumerate}
 			
 		\subsection{Read up on MCMC}
 			\begin{enumerate}
-				\item Thanks to Stack Exchange's math section, I found a really nice explanation on MCMC found here: \url{http://stats.stackexchange.com/questions/165/how-would-you-explain-markov-chain-monte-carlo-mcmc-to-a-layperson}.
-				\item Once I got the basics down from that link, I was able to parse through the rather technical Wikipedia page on the subject, and now I feel like I have a good grasp on this.
+				\item Thanks to Stack Exchange's math section, I found a really nice explanation on MCMC. After reading that, I was able to parse through the rather technical Wikipedia page on the subject, and now I feel like I have a good grasp on this.
 			\end{enumerate}
 		
 		\subsection{Run Logan's code}
 			\begin{enumerate}
-				\item Logan's code from his \texttt{cubmisc} repository was pretty broken on my machine, but that could have just been my configuration. After fixing the initial errors I received, I began running his \texttt{run\_roc.r} test script at 15:35 on Wednesday.
+				\item Logan's code from his \texttt{cubmisc} repository was pretty broken on my machine, but that could have just been my configuration. After fixing the initial errors I received, I began running his \texttt{run\_roc.r} test script at 15:35 on Wednesday. I left at 17:35 and it was still running on Gauley.
+				\item Thursday morning at 10:55 when I got in, it had halted execution with this error:
+				\begin{verbatim}
+				Error in my.set.adaptive(nIter + 1, n.aa = n.aa, 
+				b.DrawScale = b.DrawScale,  : 
+				length of p.DrawScale is incorrect.
+				Calls: system.time ... cubsinglechain -> do.call -> 
+				<Anonymous> -> my.set.adaptive
+				Execution halted
+				\end{verbatim}
+				
+				I'm not really sure what any of this means, and it's entirely possible that this isn't his final code, being this other repository I found. However, this is currently the best lead I have on which code was Logan's. According to Cedric, there were 1 or 2 functions in the cubfits library that Logan wrote, but we're unsure of which ones they are.
+				
+				\item I tried to run his \texttt{run\_nsef.r}, but it halted with these errors:
+				\begin{verbatim}
+					Error in phi.New[accept] <- prop$phi.Prop[accept] : 
+					NAs are not allowed in subscripted assignments
+					Calls: system.time ... cubsinglechain -> do.call -> 
+					<Anonymous> -> my.drawPhiConditionalAll
+					In addition: Warning messages:
+					1: In dlnorm(phi.Obs, log(phi), sigmaW, log = TRUE) : NaNs produced
+					2: In rnorm(1, mean = log.sigma.Phi.Curr, sd = sigma.Phi.DrawScale) :
+					NAs produced
+					3: In my.drawRestrictHP(proplist, list.Curr, phi.Curr) :
+					log acceptance probability not finite in hyperparam draw
+					4: In rnorm(1, mean = bias.Phi.Curr, sd = bias.Phi.DrawScale) :
+					NAs produced
+					5: In my.drawbiasPhi(proplist, list.Curr, log.phi.Obs, log.phi.Curr,  :
+					log acceptance probability not finite in hyperparam draw
+					Execution halted
+				\end{verbatim}
 			\end{enumerate}
 \end{document}
