@@ -7,13 +7,13 @@
 \author{Jeremy Rogers \\
 	\texttt{jroger44@vols.utk.edu}}
 
-\date{Week of May 11, 2015}
+\date{May, 2015}
 \begin{document}
 	\maketitle
 	
 	\tableofcontents
 	
-	\section{Goals for the Week}
+	\section{Goals for the Month}
 	\begin{enumerate}
 		\item Install \LaTeX\ for these notes
 		\item Get access to the repository and Gauley
@@ -24,6 +24,7 @@
 		\item Get a Linux install working on my machine
 		\item Read up on MCMC
 		\item Begin running Logan's old code
+		\item Set up the printer for timesheets
 	\end{enumerate}
 	
 	\section{Progress/Notes}
@@ -63,7 +64,7 @@
 		
 		\subsection{Read the R Manual}
 		\begin{enumerate}
-			\item Read the first 3 chapters
+			\item I have read the first 3 chapters. I feel like I have a good grasp on the R language and environment now.
 		\end{enumerate}
 		
 		\subsection{Read through the code on the repository}
@@ -80,7 +81,7 @@
 		\subsection{Get a Linux Install working on my machine}
 			\begin{enumerate}
 				\item This is a low priority, but I'd still like to get it done by the end of the week. According to the documentation on \texttt{CUBfits}, some of the parallel stuff might bug out on Windows.
-				\item Wednesday Update: I have a working linux install now, so that will dramatically help to test these things.
+				\item May 13 Update: I have a working linux install now, so that will dramatically help to test these things.
 			\end{enumerate}
 			
 		\subsection{Read up on MCMC}
@@ -90,8 +91,8 @@
 		
 		\subsection{Run Logan's code}
 			\begin{enumerate}
-				\item Logan's code from his \texttt{cubmisc} repository was pretty broken on my machine, but that could have just been my configuration. After fixing the initial errors I received, I began running his \texttt{run\_roc.r} test script at 15:35 on Wednesday. I left at 17:35 and it was still running on Gauley.
-				\item Thursday morning at 10:55 when I got in, it had halted execution with this error:
+				\item Logan's code from his \texttt{cubmisc} repository was pretty broken on my machine, but that could have just been my configuration. After fixing the initial errors I received, I began running his \texttt{run\_roc.r} test script at 15:35 on May 13. I left at 17:35 and it was still running on Gauley.
+				\item The next morning at 10:55 when I got in, it had halted execution with this error:
 				\begin{verbatim}
 				Error in my.set.adaptive(nIter + 1, n.aa = n.aa, 
 				b.DrawScale = b.DrawScale,  : 
@@ -101,7 +102,7 @@
 				Execution halted
 				\end{verbatim}
 				
-				I'm not really sure what any of this means, and it's entirely possible that this isn't his final code, being this other repository I found. However, this is currently the best lead I have on which code was Logan's. According to Cedric, there were 1 or 2 functions in the cubfits library that Logan wrote, but we're unsure of which ones they are.
+				I'm not really sure what any of this means, and it's entirely possible that this isn't his final code, being this other repository I found. However, this is currently the best lead I have on which code was Logan's. According to Cedric, there were 1 or 2 functions in the \texttt{cubfits} library that Logan wrote, but we're unsure of which ones they are.
 				
 				\item I tried to run his \texttt{run\_nsef.r}, but it halted with these errors:
 				\begin{verbatim}
@@ -121,5 +122,45 @@
 					log acceptance probability not finite in hyperparam draw
 					Execution halted
 				\end{verbatim}
-			\end{enumerate}
+				
+				This will be fun.
+				
+				\item After speaking with Dr. Gilchrist, I am aware that my main objective at the moment is to run the first order approximation of the NSE model on the genomes, both simulated and actual. For the simulated genomes, I must find the values used to see if we can reconstruct them accurately using the first order NSE approximation.
+				
+				\item I've been tweaking Logan's NSE code to parallelize a little, since his wasn't parallelized at all. Hopefully this will take less time to run now. In order to make it parallel, all I had to do was near the beginning of the code, add \texttt{config\$parallel <- "mclapply"}. I did \texttt{mclapply} since I'm running this on Gauley with shared memory. If I move this to Newton, which I probably will at some point, I'll have to use \texttt{task.pull}
+				
+				\item I've been tweaking some settings to try to get this to work properly. I had a few different errors that were quick fixes, but this one is a head scratcher. Running the code, I get this error, the same one from before:
+				\begin{verbatim}
+					running cubappr using cubsinglechain 
+					with seeds: 84953
+					Running in parallel mode mclapplyError in my.set.adaptive(nIter +
+					 1, n.aa = n.aa, b.DrawScale = b.DrawScale,  : 
+					length of p.DrawScale is incorrect.
+					Calls: system.time ... cubsinglechain -> do.call -> <Anonymous> ->
+					 my.set.adaptive
+					Timing stopped at: 22.393 4.374 18.18 
+					Execution halted
+				\end{verbatim}
+				
+				Length of p.DrawScale is incorrect? I looked at my.adaptive.DrawScale, and found some pertinent lines of code. However, there are 4 places which print the \texttt{length of p.DrawScale is incorrect} error. So, now I have to figure out which one it is.
+				
+				My first thought was to add print statements in each one to see which one was getting triggered. I did that, but there were problems building it locally on Gauley. First, \LaTeX\ wasn't installed, and for some reason, that caused the build to fail. So I got cedric to install \texttt{texlive} for me. Once that was installed, it built properly. However, when I would try to run it with the local library, R couldn't find it. Maybe I just don't know enough about R. I'll look into that later. 
+				
+				Cedric mentioned using R's \texttt{browser()} function to figure out where I am in the code. I'll begin looking through the R manual to learn that function.
+				
+				I've narrowed it down significantly now. Logan's \texttt{run\_roc.r} calls a function called \texttt{cubsinglechain}. I used \texttt{grep} to find it in the \texttt{cubfits} source, and it's in the file \texttt{cedric.convergence.r}. From there, it appears that it's in line 221, which has \texttt{res <- do.call(cubfits, c(input\_list, list(phi.Init = init.phi), list(p.Init = p.init), list(b.RInit = b.rinit), list(b.Init = b.init),
+					list(b.DrawScale = b.DrawScale), list(p.DrawScale = p.DrawScale), list(phi.DrawScale = phi.DrawScale)))
+					} 
+					
+				I'm unsure of what's going on here for now. I'll ask Cedric at some point.
+				
+				I decided to try to build \texttt{cubfits} locally, with a print statement after setting \texttt{p.DrawScale}. After adding that, it magically is working now. I began running it at 12:14, so I'll see where this goes. 
+				
+				Maybe this actually works sometimes, and I just got lucky with it working this time after adding a line. Or maybe the version of \texttt{cubfits} I built locally is different than the one I got from \texttt{CRAN}. Regardless, it's still running now at 13:37, so hopefully  it will stay this way. For the record, I'm running this with the Brewers' Yeast genome, with initial phi values given in the same directory.
+ 			\end{enumerate} 
+ 			
+ 		\subsection{Set up the printer}
+ 		\begin{enumerate}
+		 	\item It was brought to my attention that I should set up the printer in the lab to print timesheets, and anything else I might want. This proved to be a daunting task. I printed out the network configuration on the printer to get the IP address. On my machine, I was able to ping the printer but unable to actually connect to it. So, I got the \texttt{.ppd} files from Brother's website to get the configuration. Eventually I got to a point where my machine would say it was sending the files, and then give a confirmation that it's printed, but the printer wouldn't react. I wonder if \texttt{CUPS} is sending the files to some other directory that isn't the actual printing spool, and that's what is giving the false positive printing confirmation. Either way, I think I'll just use my home printer for timesheets. I may come back to this later, but right now it's a low priority.
+ 		\end{enumerate}
 \end{document}

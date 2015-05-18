@@ -1,4 +1,4 @@
-\contentsline {section}{\numberline {1}Goals for the Week}{1}{section.1}
+\contentsline {section}{\numberline {1}Goals for the Month}{1}{section.1}
 \contentsline {section}{\numberline {2}Progress/Notes}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Install \LaTeX \ for these notes}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Get access to the repository and Gauley}{2}{subsection.2.2}
@@ -6,6 +6,7 @@
 \contentsline {subsection}{\numberline {2.4}Read the R Manual}{3}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Read through the code on the repository}{3}{subsection.2.5}
 \contentsline {subsection}{\numberline {2.6}Create a repository for these notes}{3}{subsection.2.6}
-\contentsline {subsection}{\numberline {2.7}Get a Linux Install working on my machine}{3}{subsection.2.7}
+\contentsline {subsection}{\numberline {2.7}Get a Linux Install working on my machine}{4}{subsection.2.7}
 \contentsline {subsection}{\numberline {2.8}Read up on MCMC}{4}{subsection.2.8}
 \contentsline {subsection}{\numberline {2.9}Run Logan's code}{4}{subsection.2.9}
+\contentsline {subsection}{\numberline {2.10}Set up the printer}{7}{subsection.2.10}
