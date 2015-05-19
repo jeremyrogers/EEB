@@ -144,7 +144,7 @@
 				
 				Length of p.DrawScale is incorrect? I looked at my.adaptive.DrawScale, and found some pertinent lines of code. However, there are 4 places which print the \texttt{length of p.DrawScale is incorrect} error. So, now I have to figure out which one it is.
 				
-				My first thought was to add print statements in each one to see which one was getting triggered. I did that, but there were problems building it locally on Gauley. First, \LaTeX\ wasn't installed, and for some reason, that caused the build to fail. So I got cedric to install \texttt{texlive} for me. Once that was installed, it built properly. However, when I would try to run it with the local library, R couldn't find it. Maybe I just don't know enough about R. I'll look into that later. 
+				My first thought was to add print statements in each one to see which one was getting triggered. I did that, but there were problems building it locally on Gauley. First, \LaTeX\ wasn't installed, and for some reason, that caused the build to fail. So I got Cedric to install \texttt{texlive} for me. Once that was installed, it built properly. However, when I would try to run it with the local library, R couldn't find it. Maybe I just don't know enough about R. I'll look into that later. 
 				
 				Cedric mentioned using R's \texttt{browser()} function to figure out where I am in the code. I'll begin looking through the R manual to learn that function.
 				
@@ -154,9 +154,23 @@
 					
 				I'm unsure of what's going on here for now. I'll ask Cedric at some point.
 				
-				I decided to try to build \texttt{cubfits} locally, with a print statement after setting \texttt{p.DrawScale}. After adding that, it magically is working now. I began running it at 12:14, so I'll see where this goes. 
+				On May 14, I spent a good part of the day learning how to use custom packages in R, so that I could build this stuff locally to debug and to edit things. 
 				
-				Maybe this actually works sometimes, and I just got lucky with it working this time after adding a line. Or maybe the version of \texttt{cubfits} I built locally is different than the one I got from \texttt{CRAN}. Regardless, it's still running now at 13:37, so hopefully  it will stay this way. For the record, I'm running this with the Brewers' Yeast genome, with initial phi values given in the same directory.
+				I decided to try to build \texttt{cubfits} locally, with a print statement after setting \texttt{p.DrawScale}. After adding that, it magically is working now. I began running it at 12:14 on May 17, so I'll see where this goes. 
+				
+				Maybe this actually works sometimes, and I just got lucky with it working this time after adding a line. Or maybe the version of \texttt{cubfits} I built locally is different than the one I got from \texttt{CRAN}. Regardless, it's still running now at 13:37, so hopefully it will stay this way. For the record, I'm running this with the Brewers' Yeast genome, with the initial phi values given in the same directory.
+				
+				I've restarted the script now with less samples (750 down from 6000) in order to save some time. I'm also running it with the ecoli genome now, just for a change in testing. I began this run at 14:53 on May 18. 
+				
+				I checked it at around 21:00, and it had completed! Finally. It created 4 files, \texttt{ecoliwithPhi.bmat}, \texttt{ecoliwithPhi.dat}, \texttt{ecoliwithPhi.log}, and \texttt{ecoliwithPhi.phi}. Now I'll have to figure out what each of these files does, and visualize them.
+				
+				Obviously, \texttt{ecoliwithPhi.log} is the log file. According to this, the time for 1 chain on 5 cores was 226.63 minutes. It apparently finished at 18:52, which was actually much earlier than I expected. Reducing the samples helped that a lot I would assume.
+				
+				\texttt{ecoliwithPhi.bmat} has a list of values for proteins and values with standard deviations. I assume the value is the mean for the data set? Not sure.
+				
+				\texttt{ecoliwithPhi.phi} is a list of ORFs and information about them, such as arithmetic means of $ \phi $, geometric means, \texttt{harm\_mean} (harmonic mean?), and standard deviations. Neat.
+				
+				\texttt{ecoliwithPhi.dat} is unreadable with a standard text editor. I'm not really sure what it holds.
  			\end{enumerate} 
  			
  		\subsection{Set up the printer}
