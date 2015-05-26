@@ -9,4 +9,5 @@
 \contentsline {subsection}{\numberline {2.7}Get a Linux Install working on my machine}{4}{subsection.2.7}
 \contentsline {subsection}{\numberline {2.8}Read up on MCMC}{4}{subsection.2.8}
 \contentsline {subsection}{\numberline {2.9}Run Logan's code}{4}{subsection.2.9}
-\contentsline {subsection}{\numberline {2.10}Set up the printer}{7}{subsection.2.10}
+\contentsline {subsection}{\numberline {2.10}Set up the printer}{13}{subsection.2.10}
+\contentsline {section}{\numberline {3}Next Steps}{13}{section.3}

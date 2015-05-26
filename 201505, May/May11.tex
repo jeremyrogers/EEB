@@ -1,7 +1,7 @@
 \documentclass[12 pt]{article}
 
 \usepackage{hyperref}
-
+\usepackage{pdfpages}
 \title{Week of May 11}
 
 \author{Jeremy Rogers \\
@@ -125,7 +125,7 @@
 				
 				This will be fun.
 				
-				\item After speaking with Dr. Gilchrist, I am aware that my main objective at the moment is to run the first order approximation of the NSE model on the genomes, both simulated and actual. For the simulated genomes, I must find the values used to see if we can reconstruct them accurately using the first order NSE approximation.
+				\item After speaking with Dr. Gilchrist, it is clear that my main objective at the moment is to run the first order approximation of the NSE model on the genomes, both simulated and actual. For the simulated genomes, I must find the values used to see if we can reconstruct them accurately using the first order NSE approximation.
 				
 				\item I've been tweaking Logan's NSE code to parallelize a little, since his wasn't parallelized at all. Hopefully this will take less time to run now. In order to make it parallel, all I had to do was near the beginning of the code, add \texttt{config\$parallel <- "mclapply"}. I did \texttt{mclapply} since I'm running this on Gauley with shared memory. If I move this to Newton, which I probably will at some point, I'll have to use \texttt{task.pull}
 				
@@ -171,10 +171,43 @@
 				\texttt{ecoliwithPhi.phi} is a list of ORFs and information about them, such as arithmetic means of $ \phi $, geometric means, \texttt{harm\_mean} (harmonic mean?), and standard deviations. Neat.
 				
 				\texttt{ecoliwithPhi.dat} is unreadable with a standard text editor. I'm not really sure what it holds.
+				
+				I found his file \texttt{visualize.r} in the directory. I ran it, but it was broken because the directories and files were hardcoded. I made those customizable at the top, and fixed them to fit my files, and it graphed! I'm not really sure what these graphs mean, but I can figure out some of them. The estimated $ \phi $ vs. observed $ \phi $ graph has an awful correlation coefficient, with $ R^2 = .138 $. That's abysmal, but I feel it could be because I ran it with very few samples. Or maybe it's supposed to be bad.
+				
+				\includepdf{graphs/ecoli/750samples/ecoli_vs_obs_phi_05-19.pdf}
+				
+				All of the graphs that I got are available in the \texttt{graphs} directory. 
+				
+				I've begun cleaning up his visualization code, as there's a lot of things hard coded that are hard to edit, so it should be nicer to change up for different genomes now. Also, with his previous code, it only worked for the genomes he was specifically testing. After I edit it, it should work for any given genome.
+				
+				While working on the visualization script, I've begun running the NSE approximation on the Brewers' Yeast at 15:34. This time, again, with 750 samples for brevity, just to see if it works. It should be done, judging by the time it took the ecoli genome, around 6 or 7.
+				
+				Well, that took much longer than expected. I'm not sure why it took so much longer on the Brewers' Yeast. I checked it at 19:00 and then again at 22:00, and it was still running. It finally finished at 3:42 the next morning, May 20. It had a runtime of about 721 minutes. I'll ask Cedric why the brewers' yeast took so much longer than the ecoli genome (around a factor of 3 slower).
+				
+				Regardless, the graphs for this are in the \texttt{graphs} directory as well. Note in the estimated $ \phi $ vs. observed $ \phi $ graph, the correlation coefficient is much better, at $ R^2 = .597 $. That's not great, but it's much better than the ecoli genome's graphs. Perhaps this is related to why the brewers' yeast genome took so much longer.
+				
+				I talked to Cedric about the discrepancy in times, and he said it's probably attributed to simply the lengths of the genomes. So, I think that's alright.
+				
+				I began running the 6000 sample version of the ecoli NSE model, and it took a whopping 47 hours to complete. However, looking at the graphs it created, they're not too great. The estimated $ \phi $ vs. observed $ \phi $ graph, shown below, has a correlation coefficient of .525, worse than the 750 sample run for the Brewers' Yeast. Also shown below, the CUB graphs have pretty big confidence intervals, assuming I'm reading those graphs correctly. Perhaps the initial guesses are bad. I used SCUO for the initial guesses, since that's the way Logan left it. I'll look into some other initial conditions and see if I can improve this.
+				
+				\includepdf{graphs/ecoli/6000samples/6000samplesecoli_vs_obs_phi_05-21.pdf}
+				\includepdf{graphs/ecoli/6000samples/6000samplesecoli_CUB_est_bin_05-21.pdf}
+				\includepdf{graphs/ecoli/6000samples/6000samplesecoli_CUB_obs_bin_05-21.pdf}
+				
+				Dr. Gilchrist mentioned changing the proteins to only include the ones that have 2 amino acids. Apparently, the ones that have more than 2 kill performance. Interesting. I'll do that for testing from now on.
+				
+				
  			\end{enumerate} 
  			
  		\subsection{Set up the printer}
  		\begin{enumerate}
 		 	\item It was brought to my attention that I should set up the printer in the lab to print timesheets, and anything else I might want. This proved to be a daunting task. I printed out the network configuration on the printer to get the IP address. On my machine, I was able to ping the printer but unable to actually connect to it. So, I got the \texttt{.ppd} files from Brother's website to get the configuration. Eventually I got to a point where my machine would say it was sending the files, and then give a confirmation that it's printed, but the printer wouldn't react. I wonder if \texttt{CUPS} is sending the files to some other directory that isn't the actual printing spool, and that's what is giving the false positive printing confirmation. Either way, I think I'll just use my home printer for timesheets. I may come back to this later, but right now it's a low priority.
  		\end{enumerate}
+ 		
+ 		\section{Next Steps}
+	 		\begin{enumerate}
+	 			\item Run the NSE model with more samples on all test genomes.
+	 			\item Refactor (or possibly even rewrite) the visualization script, since it's very brittle at the moment.
+	 			\item Figure out how to run the test scripts and visualization scripts on simulated data, to see if the original data can be recreated with the NSE model.
+	 		\end{enumerate}
 \end{document}
