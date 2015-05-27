@@ -24,6 +24,8 @@
 		\item Get a Linux install working on my machine
 		\item Read up on MCMC
 		\item Begin running Logan's old code
+		\item Create my own genome for testing
+		\item Refactor the visualization script
 		\item Set up the printer for timesheets
 	\end{enumerate}
 	
@@ -31,7 +33,7 @@
 	
 	\subsection{Install \LaTeX\ for these notes}
 		\begin{enumerate}
-			\item \LaTeX has been installed and tested
+			\item \LaTeX\ has been installed and tested
 		\end{enumerate}
 	
 	\subsection{Get access to the repository and Gauley}
@@ -188,7 +190,7 @@
 				
 				I talked to Cedric about the discrepancy in times, and he said it's probably attributed to simply the lengths of the genomes. So, I think that's alright.
 				
-				I began running the 6000 sample version of the ecoli NSE model, and it took a whopping 47 hours to complete. However, looking at the graphs it created, they're not too great. The estimated $ \phi $ vs. observed $ \phi $ graph, shown below, has a correlation coefficient of .525, worse than the 750 sample run for the Brewers' Yeast. Also shown below, the CUB graphs have pretty big confidence intervals, assuming I'm reading those graphs correctly. Perhaps the initial guesses are bad. I used SCUO for the initial guesses, since that's the way Logan left it. I'll look into some other initial conditions and see if I can improve this.
+				I began running the 6000 sample version of the ecoli NSE model, and it took a whopping 47 hours to complete. However, looking at the graphs it created, they're not as great as I expected. The estimated $ \phi $ vs. observed $ \phi $ graph, shown below, has a correlation coefficient of .525, worse than the 750 sample run for the Brewers' Yeast. Also shown below are the CUB graphs. Perhaps the initial guesses are bad. I used SCUO for the initial guesses, since that's the way Logan left it. I'll look into some other initial conditions and see if I can improve this.
 				
 				\includepdf{graphs/ecoli/6000samples/6000samplesecoli_vs_obs_phi_05-21.pdf}
 				\includepdf{graphs/ecoli/6000samples/6000samplesecoli_CUB_est_bin_05-21.pdf}
@@ -196,8 +198,25 @@
 				
 				Dr. Gilchrist mentioned changing the proteins to only include the ones that have 2 amino acids. Apparently, the ones that have more than 2 kill performance. Interesting. I'll do that for testing from now on.
 				
+				After running a few more tests, it seems that the REU13 yeast is the best. This one fits almost perfectly to everything. Maybe if I can figure out why this one fits so well, I can get the others to fit as well. The Brewers' Yeast, Preston's Yeast, and Logan's Yeast aren't necessarily bad, but they're nowhere close to the REU13 yeast.
+				
 				
  			\end{enumerate} 
+ 			
+ 		\subsection{Create my own genome}
+ 		\begin{enumerate}
+ 			\item Dr. Gilchrist mentioned creating my own genome, and seeing if the model would accurately recreate the data from the new genome, so I began looking into that.
+ 			\item In Logan's logs, he mentions creating his own genomes, and that he moved everything to a repository, but he didn't write which repository. With Cedric's help, I found an NSE repository on Gauley that I think contains the right script. It's found (on Gauley) at \\
+ 			\texttt{/export/home/semppr/gitrepos/clandere/nse.git} for future reference. The repository at \\
+ 			\texttt{/export/home/semppr/gitrepos/clandere/roc.git} contains most of the meat of this stuff as well.
+ 			\item I'm having some trouble installing the \texttt{NSEexchange} package to R. After doing the same thing I was doing with \texttt{cubfits}, it doesn't work with the \texttt{NSEexchange}. I can't install it to R on Gauley since I don't have root access on there.
+ 			\item I finally got the genome sequencing working. For future reference, I needed the dependencies stored at \texttt{/export/home/lbrown/cubfits/Dependencies}. Anyways, I have sequenced Jeremy's Yeast, and I am now running the NSE first order approximation model with 2000 samples on it.
+ 		\end{enumerate}
+ 		
+ 		\subsection{Refactor the visualization script}
+ 		\begin{enumerate}
+ 			\item Since Logan's visualization script was hardcoded, I figured I should make it a little easier to customize. Now everything has been moved to the top into variables, so it should be easier to generalize now. Also, I found an old script of Cedric's that can be used as well.
+ 		\end{enumerate}
  			
  		\subsection{Set up the printer}
  		\begin{enumerate}
@@ -206,8 +225,8 @@
  		
  		\section{Next Steps}
 	 		\begin{enumerate}
-	 			\item Run the NSE model with more samples on all test genomes.
-	 			\item Refactor (or possibly even rewrite) the visualization script, since it's very brittle at the moment.
-	 			\item Figure out how to run the test scripts and visualization scripts on simulated data, to see if the original data can be recreated with the NSE model.
+	 			\item Run the NSE first order approximation model with more samples on all test genomes.
+	 			\item Begin to profile the runs, and figure out how many runs for each genome are required for an accurate result.
+	 			\item Compare the NSE first order approximation runs to the normal NSE runs.
 	 		\end{enumerate}
 \end{document}
