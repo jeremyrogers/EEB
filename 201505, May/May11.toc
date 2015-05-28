@@ -10,6 +10,6 @@
 \contentsline {subsection}{\numberline {2.8}Read up on MCMC}{4}{subsection.2.8}
 \contentsline {subsection}{\numberline {2.9}Run Logan's code}{4}{subsection.2.9}
 \contentsline {subsection}{\numberline {2.10}Create my own genome}{14}{subsection.2.10}
-\contentsline {subsection}{\numberline {2.11}Refactor the visualization script}{14}{subsection.2.11}
-\contentsline {subsection}{\numberline {2.12}Set up the printer}{15}{subsection.2.12}
-\contentsline {section}{\numberline {3}Next Steps}{15}{section.3}
+\contentsline {subsection}{\numberline {2.11}Refactor the visualization script}{18}{subsection.2.11}
+\contentsline {subsection}{\numberline {2.12}Set up the printer}{18}{subsection.2.12}
+\contentsline {section}{\numberline {3}Next Steps}{18}{section.3}

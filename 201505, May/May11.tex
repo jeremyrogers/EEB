@@ -198,7 +198,7 @@
 				
 				Dr. Gilchrist mentioned changing the proteins to only include the ones that have 2 amino acids. Apparently, the ones that have more than 2 kill performance. Interesting. I'll do that for testing from now on.
 				
-				After running a few more tests, it seems that the REU13 yeast is the best. This one fits almost perfectly to everything. Maybe if I can figure out why this one fits so well, I can get the others to fit as well. The Brewers' Yeast, Preston's Yeast, and Logan's Yeast aren't necessarily bad, but they're nowhere close to the REU13 yeast.
+				After running a few more tests, it seems that the model fits the REU13 yeast closest. This one fits almost perfectly to everything. Maybe if I can figure out why this one fits so well, I can get the others to fit as well. The Brewers' Yeast, Preston's Yeast, and Logan's Yeast aren't necessarily bad, but they're nowhere close to the REU13 yeast. This was run with $ a_1 = a_2 = 4 $, per Logan's request. I'll try different values of $ a_1 $ and $ a_2 $ for the different runs, especially with the ones that are actual genomes, since it's hard to know what $ a_1 $ and $ a_2 $ should actually be.
 				
 				
  			\end{enumerate} 
@@ -211,11 +211,16 @@
  			\texttt{/export/home/semppr/gitrepos/clandere/roc.git} contains most of the meat of this stuff as well.
  			\item I'm having some trouble installing the \texttt{NSEexchange} package to R. After doing the same thing I was doing with \texttt{cubfits}, it doesn't work with the \texttt{NSEexchange}. I can't install it to R on Gauley since I don't have root access on there.
  			\item I finally got the genome sequencing working. For future reference, I needed the dependencies stored at \texttt{/export/home/lbrown/cubfits/Dependencies}. Anyways, I have sequenced Jeremy's Yeast, and I am now running the NSE first order approximation model with 2000 samples on it.
+ 			\item The run finally finished at 10:06, after about 41.5 hours. I was a little surprised by how long it took, but then again, it was a 2000 sample run, with a rather large genome (around 5000 genes). The results are.... interesting. The $ \phi $ convergence is good, much better than most of the other genomes, at $ R^2 = .688 $. However, the $ \omega $ convergence is laughably bad. Correlation of $ R^2=.000288 $, and the best fit line is a horizontal line. Maybe I used the wrong file for the $ \omega $s or something. I'll look into it.
+ 			
+ 			\includepdf{graphs/jeremyyeast/jeremy_vs_obs_phi_05-27.pdf}
+ 			\includepdf{graphs/jeremyyeast/jeremy_codonParameters_05-27.pdf}
  		\end{enumerate}
  		
  		\subsection{Refactor the visualization script}
  		\begin{enumerate}
  			\item Since Logan's visualization script was hardcoded, I figured I should make it a little easier to customize. Now everything has been moved to the top into variables, so it should be easier to generalize now. Also, I found an old script of Cedric's that can be used as well.
+ 			\item I've edited a little bit of the visualization script. For some reason, $ \Delta a_{12} $ and $ a_2 $ were given in the config and then again in the visualization script. I've edited the script to simply use the ones from the config.
  		\end{enumerate}
  			
  		\subsection{Set up the printer}
